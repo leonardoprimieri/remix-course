@@ -1,4 +1,4 @@
-import type { ActionArgs } from "@remix-run/node";
+import type { ActionArgs, LinksFunction } from "@remix-run/node";
 import { redirect } from "@remix-run/node";
 import { getStoredNotes, storeNotes } from "db/notes";
 import NewNote, { links as newNoteLinks } from "~/components/NewNote";
@@ -24,6 +24,4 @@ export async function action({ request }: ActionArgs) {
   return redirect("/notes");
 }
 
-export function links() {
-  return [...newNoteLinks()];
-}
+export const links: LinksFunction = () => [...newNoteLinks()];

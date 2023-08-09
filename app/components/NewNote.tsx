@@ -1,3 +1,4 @@
+import type { LinksFunction } from "@remix-run/node";
 import styles from "./NewNote.css";
 
 function NewNote() {
@@ -20,6 +21,4 @@ function NewNote() {
 
 export default NewNote;
 
-export function links() {
-  return [{ rel: "stylesheet", href: styles }];
-}
+export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];
