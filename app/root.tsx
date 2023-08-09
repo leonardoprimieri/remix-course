@@ -1,5 +1,6 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
@@ -28,6 +29,25 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  );
+}
+
+export function ErrorBoundary({ error }: any) {
+  console.error(error);
+  return (
+    <html>
+      <head>
+        <title>Oh no!</title>
+        <Meta />
+        <Links />
+      </head>
+      <body>
+        <h1>Something went wrong!</h1>
+        <pre>{error.message}</pre>
+        <Link to="/">Go back to home</Link>
+        <Scripts />
       </body>
     </html>
   );
