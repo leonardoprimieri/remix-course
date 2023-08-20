@@ -6,8 +6,8 @@ function NoteList({ notes }) {
   return (
     <ul id="note-list">
       {notes.map((note, index) => (
-        <Link key={note.id} to={note?.id}>
-          <li className="note">
+        <li className="note" key={note.id}>
+          <Link to={note?.id}>
             <article>
               <header>
                 <ul className="note-meta">
@@ -28,8 +28,8 @@ function NoteList({ notes }) {
               </header>
               <p>{note.content}</p>
             </article>
-          </li>
-        </Link>
+          </Link>
+        </li>
       ))}
     </ul>
   );

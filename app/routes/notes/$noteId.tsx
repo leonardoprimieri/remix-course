@@ -1,5 +1,5 @@
-import type { LinksFunction } from "@remix-run/node";
-import { Link, useLoaderData } from "@remix-run/react";
+import { json, type LinksFunction } from "@remix-run/node";
+import { Link, useCatch, useLoaderData } from "@remix-run/react";
 import styles from "../../styles/note-details.css";
 import { getStoredNotes } from "db/notes";
 
@@ -19,18 +19,38 @@ export default function NoteDetailsPage() {
   );
 }
 
+export const meta = ({ data }) => ({
+  title: data.title,
+  description: "A list of notes",
+});
+
 export async function loader({ params }: { params: { noteId: string } }) {
   const notes = await getStoredNotes();
 
   const selectedNote = notes.find((note) => note.id === params.noteId);
 
   if (!selectedNote) {
-    return {
-      message: "Could not find note",
-    };
+    throw json(
+      {
+        message: "Could not find note",
+      },
+      {
+        status: 404,
+      }
+    );
   }
 
   return selectedNote;
+}
+
+export function CatchBoundary() {
+  const error = useCatch();
+
+  return (
+    <main>
+      <p className="info-message">{error?.data?.message}</p>
+    </main>
+  );
 }
 
 export const links: LinksFunction = () => [{ rel: "stylesheet", href: styles }];

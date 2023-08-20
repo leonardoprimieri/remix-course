@@ -58,6 +58,11 @@ export const links: LinksFunction = () => [
   ...notListLinks(),
 ];
 
+export const meta = {
+  title: "Notes",
+  description: "A list of notes",
+};
+
 export function CatchBoundary() {
   const error = useCatch();
 
